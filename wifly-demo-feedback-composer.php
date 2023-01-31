@@ -2,9 +2,9 @@
 
 /*
 Plugin Name: WiflyDemoFeedbackComposer
-Plugin URI: -
-Description: Плагин отвечает за сбор и вывод обратной связи
-Version: 1.0.0
+Plugin URI: https://github.com/DavidaaWoW/wp-feedback-composer
+Description: The plugin is responsible for collecting and displaying feedback
+Version: 1.0.2
 Author: DavitG
 Author URI: https://github.com/DavidaaWoW
 */
