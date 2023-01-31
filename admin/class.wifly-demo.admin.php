@@ -16,6 +16,7 @@ class Wifly_Demo_Feedback_Admin
     {
         add_menu_page('Feedback page', 'Feedback page', 'manage_options', 'feedback_page', 'Wifly_Demo_Feedback_Admin::render_page', 'dashicons-format-quote');
         add_submenu_page('feedback_page', 'Settings', 'Settings', 'manage_options', 'settings_page', 'Wifly_Demo_Feedback_Admin::render_settings_page');
+        add_submenu_page('feedback_page', 'How does it work?', 'How does it work?', 'manage_options', 'faq', 'Wifly_Demo_Feedback_Admin::render_faq_page');
     }
 
     public static function render_page()
@@ -26,6 +27,11 @@ class Wifly_Demo_Feedback_Admin
     public static function render_settings_page()
     {
         require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR . 'templates/settings-page.php';
+    }
+
+    public static function render_faq_page()
+    {
+        require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR . 'templates/faq-page.php';
     }
 
     public static function get_feedback(){
