@@ -4,7 +4,7 @@
 Plugin Name: WiflyDemoFeedbackComposer
 Plugin URI: https://github.com/DavidaaWoW/wp-feedback-composer
 Description: The plugin is responsible for collecting and displaying feedback
-Version: 1.0.2
+Version: 1.0.3
 Author: DavitG
 Author URI: https://github.com/DavidaaWoW
 */
