@@ -3,7 +3,7 @@
 
     <p>At first, you need to visit setting page and configure needed columns names for your feedback form</p>
 
-    <img src="<?php echo WIFLY_DEMO_FEEDBACK_PLUGIN_URL.'static/images/settings_image.png'?>" alt="">
+    <img src="<?php echo esc_url(WIFLY_DEMO_FEEDBACK_PLUGIN_URL.'static/images/settings_image.png')?>" alt="">
 
     <p>But don't worry, if you forget to add some fields, or misspelled them - they gonna be automatic added to the DB, and you will be able to edit them as well on settings page</p>
 
@@ -25,7 +25,7 @@
 
     <p>After user submits new feedback it will be available on feedback page, inside your admin panel. Also you can download a dump with all the feedback in CSV file, simply clicking on the corresponded button</p>
 
-    <img src="<?php echo WIFLY_DEMO_FEEDBACK_PLUGIN_URL . 'static/images/feedback_image.png' ?>" alt="">
+    <img src="<?php echo esc_url(WIFLY_DEMO_FEEDBACK_PLUGIN_URL . 'static/images/feedback_image.png') ?>" alt="">
 </div>
 
 <style>

@@ -2,7 +2,7 @@
 Contributors: Davidaa_WoW
 Tags: display custom fields, feedback, shortcode, widget, custom fields in frontend, get field values, post, custom post, feedback composer, feedback dump
 Requires at least: 5.5
-Tested up to: 7.4
+Tested up to: 9.0.1
 Requires PHP: 7.4
 Stable tag: 1.0.2
 License: GPLv2 or later

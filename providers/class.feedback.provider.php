@@ -1,58 +1,49 @@
 <?php
 
-class FeedbackProvider{
+class WiflyDemoFeedbackProvider{
 
     public static function getCategories(){
         global $wpdb;
-        $categories = FEEDBACK_CATEGORY_TABLE;
-        return $wpdb->get_results("select * from $categories");
+        return $wpdb->get_results("select * from {$wpdb->prefix}feedback_category");
     }
 
     public static function addCategory($title){
         global $wpdb;
-        $categories = FEEDBACK_CATEGORY_TABLE;
-        $wpdb->query("insert into $categories (`title`) values ('$title')");
+        $wpdb->query($wpdb->prepare("insert into {$wpdb->prefix}feedback_category (`title`) values ('%s')", [$title]));
     }
 
     public static function editCategory($data){
         global $wpdb;
-        $categories = FEEDBACK_CATEGORY_TABLE;
         $title = $data['title'];
         $id = $data['id'];
-        $wpdb->query("update $categories set `title` = '$title' where `id` = '$id'");
+        $wpdb->query($wpdb->prepare("update {$wpdb->prefix}feedback_category set `title` = '%s' where `id` = '%s'", [$title, $id]));
     }
 
     public static function deleteCategory($id){
         global $wpdb;
-        $categories = FEEDBACK_CATEGORY_TABLE;
-        $wpdb->query("delete from $categories where `id` = '$id'");
+        $wpdb->query($wpdb->prepare("delete from {$wpdb->prefix}feedback_category where `id` = '%s'", [$id]));
     }
 
     public static function getFeedback(){
         global $wpdb;
-        $table_name = FEEDBACK_TABLE;
-        $categories = FEEDBACK_CATEGORY_TABLE;
-        return $wpdb->get_results("select title, value, feedback_id from $categories join $table_name on $table_name.category_id=$categories.id;");
+        return $wpdb->get_results("select title, value, feedback_id from {$wpdb->prefix}feedback_category join {$wpdb->prefix}feedback on {$wpdb->prefix}feedback.category_id={$wpdb->prefix}feedback_category.id");
     }
 
     public static function getFeedbackById($id){
         global $wpdb;
-        $table_name = FEEDBACK_TABLE;
-        $categories = FEEDBACK_CATEGORY_TABLE;
-        return $wpdb->get_results("select title, value, feedback_id from $categories join $table_name on $table_name.category_id=$categories.id where $table_name.feedback_id='$id'");
+        return $wpdb->get_results($wpdb->prepare("select title, value, feedback_id from {$wpdb->prefix}feedback_category join {$wpdb->prefix}feedback on {$wpdb->prefix}feedback.category_id={$wpdb->prefix}feedback_category.id where {$wpdb->prefix}feedback.feedback_id='%s'", [$id]));
     }
 
     public static function addFeedback($data){
         global $wpdb;
-        $table_name = FEEDBACK_TABLE;
-        $categories = FEEDBACK_CATEGORY_TABLE;
         $feedback_id = uniqid();
         foreach ($data as $key=>$value){
-            if(!$wpdb->get_results("select * from $categories where title='$key'")){
-                $wpdb->query("insert into $categories (`title`) values ('$key')");
+            $data[$key] = sanitize_text_field($value);
+            if(!$wpdb->get_results($wpdb->prepare("select * from {$wpdb->prefix}feedback_category where title='%s'", [$key]))){
+                $wpdb->query($wpdb->prepare("insert into {$wpdb->prefix}feedback_category (`title`) values ('%s')", [$key]));
             }
-            $id = $wpdb->get_row("select id from $categories where title='$key'")->id;
-            $wpdb->query("insert into $table_name (`category_id`, `value`, `feedback_id`) values ('$id', '$value', '$feedback_id')");
+            $id = $wpdb->get_row($wpdb->prepare("select id from {$wpdb->prefix}feedback_category where title='%s'", [$key]))->id;
+            $wpdb->query($wpdb->prepare("insert into {$wpdb->prefix}feedback (`category_id`, `value`, `feedback_id`) values ('%s', '%s', '%s')", [$id, $value, $feedback_id]));
         }
     }
 

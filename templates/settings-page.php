@@ -6,21 +6,21 @@
 
     <?php
     require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR.'providers/class.feedback.provider.php';
-    $categories = FeedbackProvider::getCategories();
+    $categories = WiflyDemoFeedbackProvider::getCategories();
     foreach ($categories as $category){
         $title = $category->title;
         $id = $category->id;
         echo '<div class="row">';
         echo '<form action="'. admin_url( 'admin-post.php' ) .'" method="post" class="col">';
         echo '<input type="hidden" name="action" value="edit_category">';
-        echo '<input type="hidden" name="id" value="'. $id .'">';
-        echo '<input type="text" value="'. $title .'" name="title">';
+        echo '<input type="hidden" name="id" value="'. esc_attr($id) .'">';
+        echo '<input type="text" value="'. esc_attr($title) .'" name="title">';
         wp_nonce_field( 'edit_category', 'wifly_feedback_category_nonce' );
         echo '<button type="submit" class="col-1 btn btn-primary">e</button>';
         echo '</form>';
         echo '<form action="'. admin_url( 'admin-post.php' ) .'" method="post" class="col">';
         echo '<input type="hidden" name="action" value="delete_category">';
-        echo '<input type="hidden" name="id" value="'. $id .'">';
+        echo '<input type="hidden" name="id" value="'. esc_attr($id) .'">';
         wp_nonce_field( 'delete_category', 'wifly_feedback_category_nonce' );
         echo '<button type="submit" class="col-1 btn btn-danger">d</button>';
         echo '</form>';

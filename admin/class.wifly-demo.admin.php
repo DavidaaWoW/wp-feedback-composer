@@ -43,11 +43,11 @@ class Wifly_Demo_Feedback_Admin
             wp_die("Nonce error");
         }
 
-        $title = $_POST['title'];
+        $title = sanitize_title($_POST['title']);
 
         require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR.'providers/class.feedback.provider.php';
-        FeedbackProvider::addCategory($title);
-        wp_redirect( $_POST['_wp_http_referer'] );
+        WiflyDemoFeedbackProvider::addCategory($title);
+        wp_safe_redirect( $_POST['_wp_http_referer'] );
     }
 
     public static function edit_category(){
@@ -56,12 +56,12 @@ class Wifly_Demo_Feedback_Admin
         }
 
         $data = [];
-        $data += ['title' => $_POST['title']];
-        $data += ['id' => $_POST['id']];
+        $data += ['title' => sanitize_title($_POST['title'])];
+        $data += ['id' => sanitize_text_field($_POST['id'])];
 
         require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR.'providers/class.feedback.provider.php';
-        FeedbackProvider::editCategory($data);
-        wp_redirect( $_POST['_wp_http_referer'] );
+        WiflyDemoFeedbackProvider::editCategory($data);
+        wp_safe_redirect( $_POST['_wp_http_referer'] );
     }
 
     public static function delete_category(){
@@ -69,21 +69,20 @@ class Wifly_Demo_Feedback_Admin
             wp_die("Nonce error");
         }
 
-        $id = $_POST['id'];
+        $id = sanitize_text_field($_POST['id']);
 
         require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR.'providers/class.feedback.provider.php';
-        FeedbackProvider::deleteCategory($id);
-        wp_redirect( $_POST['_wp_http_referer'] );
+        WiflyDemoFeedbackProvider::deleteCategory($id);
+        wp_safe_redirect( $_POST['_wp_http_referer'] );
     }
 
     public static function add_feedback(){
         if (!isset($_POST['wifly_feedback_nonce']) || !wp_verify_nonce($_POST['wifly_feedback_nonce'], 'add_feedback')) {
             wp_die("Nonce error");
         }
-
         require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR.'providers/class.feedback.provider.php';
-        FeedbackProvider::addFeedback($_POST['data']);
-        wp_redirect( $_POST['_wp_http_referer'] );
+        WiflyDemoFeedbackProvider::addFeedback($_POST['data']);
+        wp_safe_redirect( $_POST['_wp_http_referer'] );
     }
 
     public static function get_dump(){
@@ -91,7 +90,7 @@ class Wifly_Demo_Feedback_Admin
             wp_die("Nonce error");
         }
         require_once WIFLY_DEMO_FEEDBACK_PLUGIN_DIR.'providers/class.feedback.provider.php';
-        FeedbackProvider::CSVDump();
+        WiflyDemoFeedbackProvider::CSVDump();
     }
 
 }

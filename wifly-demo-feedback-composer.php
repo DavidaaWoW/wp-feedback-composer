@@ -15,8 +15,8 @@ defined("ABSPATH") or die;
 
 define("WIFLY_DEMO_FEEDBACK_PLUGIN_DIR", plugin_dir_path(__FILE__));
 define("WIFLY_DEMO_FEEDBACK_PLUGIN_URL", plugin_dir_url(__FILE__));
-define("FEEDBACK_TABLE", $table_prefix.'feedback');
-define("FEEDBACK_CATEGORY_TABLE", $table_prefix.'feedback_category');
+define("WIFLY_DEMO_FEEDBACK_TABLE", $table_prefix.'feedback');
+define("WIFLY_DEMO_FEEDBACK_CATEGORY_TABLE", $table_prefix.'feedback_category');
 
 require WIFLY_DEMO_FEEDBACK_PLUGIN_DIR . 'app/class.wifly-demo-feedback-composer.php';
 

@@ -4,18 +4,16 @@ class Wifly_Demo_Feedback_Composer
 {
     public static function dbInit(){
         global $wpdb;
-        $feedback_table = FEEDBACK_TABLE;
-        $feedback_category_table = FEEDBACK_CATEGORY_TABLE;
-        $wpdb->query("create table if not exists $feedback_category_table(
+        $wpdb->query("create table if not exists {$wpdb->prefix}feedback_category(
             `id` int primary key auto_increment,
             `title` text
         )");
-        $wpdb->query("create table if not exists $feedback_table(
+        $wpdb->query("create table if not exists {$wpdb->prefix}feedback(
             `id` int primary key auto_increment,
             `feedback_id` text,
             `category_id` int,
             `value` text,
-            foreign key (category_id) references $feedback_category_table(`id`)
+            foreign key (category_id) references {$wpdb->prefix}feedback_category(`id`)
         )");
     }
 

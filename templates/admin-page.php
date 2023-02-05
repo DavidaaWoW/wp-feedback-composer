@@ -2,7 +2,7 @@
 
     <?php
     require WIFLY_DEMO_FEEDBACK_PLUGIN_DIR . '/providers/class.feedback.provider.php';
-    $feedbacks = FeedbackProvider::getFeedback();
+    $feedbacks = WiflyDemoFeedbackProvider::getFeedback();
     $columns = [];
     $feedback_ids = [];
     foreach ($feedbacks as $feedback) {
@@ -25,18 +25,18 @@
         <tr>
             <?php
             foreach ($columns as $column) {
-                echo '<th>' . $column . '</th>';
+                echo '<th>' . esc_html($column) . '</th>';
             }
             ?>
         </tr>
         <?php
         foreach ($feedback_ids as $feedback_id) {
             echo '<tr>';
-            $feedbacks_ = FeedbackProvider::getFeedbackById($feedback_id);
+            $feedbacks_ = WiflyDemoFeedbackProvider::getFeedbackById($feedback_id);
             foreach ($columns as $key => $column) {
                 echo '<td>';
                 if ($feedbacks_[$key]->title == $column) {
-                    echo $feedbacks_[$key]->value;
+                    echo esc_html($feedbacks_[$key]->value);
                 }
                 echo '</td>';
             }
